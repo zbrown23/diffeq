@@ -55,7 +55,7 @@ def plot_error_series(start_deltat, stop_deltat, steps, end, plotsolution, numso
     plt.legend()  # plot the legend
     plt.figure(2)  # change the figure to two, so you can plot the error series.
     plt.plot(delta_tlist, error_series)
-    plt.xlabel("∆t")
+    plt.xlabel("h")
     plt.ylabel("integrated error")
 
 

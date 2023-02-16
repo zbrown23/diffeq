@@ -38,9 +38,9 @@ def plot_euler_method(func, x_0, y_0, delta_t, end):
     for element in series:
         plotx.append(element[0])
         ploty.append(element[1])
-    plt.plot(plotx, ploty, label="∆t = " + str(round(delta_t, 3)))
-    plt.xlabel("time (s)")
-    plt.ylabel("w(t)")
+    plt.plot(plotx, ploty, label="h = " + str(round(delta_t, 3)))
+    plt.xlabel("x")
+    plt.ylabel("y(x)")
     return [plotx, ploty]
 
 
@@ -56,8 +56,8 @@ def main():
     plot_euler_method(function, 0, 1, 0.5, 4)
     plot_euler_method(function, 0, 1, 0.25, 4)
     plot_analytical_solution(4)
-    plt.xlabel("time (s)")
-    plt.ylabel("w(t)")
+    plt.xlabel("x")
+    plt.ylabel("y(x)")
     plt.legend()
     plt.show()
 

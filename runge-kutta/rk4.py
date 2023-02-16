@@ -8,6 +8,11 @@ def function(x, y):
     return math.sqrt(y)
 
 
+# analytical solution to the above differential equation.
+def solution(x):
+    return 0.25 * (x + 2) ** 2
+
+
 # fourth order Runge-Kutta method.
 def rk4_list(func, y_0, x_0, h, x_f):
     x = x_0
@@ -31,22 +36,40 @@ def plot_rk4(func, y_0, x_0, h, x_f):
     for element in series:
         plotx.append(element[0])
         ploty.append(element[1])
-    plt.plot(plotx, ploty, label="rk4 w/ h = " + str(round(h, 3)))
-    plt.xlabel("time (s)")
-    plt.ylabel("w(t)")
+    plt.plot(plotx, ploty, label="rk4 with h = " + str(round(h, 3)))
+    plt.xlabel("x")
+    plt.ylabel("y(x)")
+
+
+# function to plot the error of rk4 vs a given analytical solution.
+def plot_rk4_error(func, analytical, y_0, x_0, h, x_f):
+    series = rk4_list(func, y_0, x_0, h, x_f)
+    plotx = []
+    ploty = []
+    plote = []
+    for element in series:
+        plotx.append(element[0])
+        ploty.append(element[1])
+        plote.append(element[1] - analytical(element[0]))
+    plt.plot(plotx, plote, label="error when h = " + str(round(h, 3)))
+    plt.xlabel("x")
+    plt.ylabel("y(x)")
 
 
 # plot the analytical solution to the dy/dx = sqrt(y) for comparison to rk4.
-def plot_analytical_solution(end):
+def plot_analytical_solution(function, end):
     analytical_plotx = np.linspace(0, end, 100)
-    analytical_ploty = 0.25 * (analytical_plotx + 2) ** 2
+    analytical_ploty = []
+    for element in analytical_plotx:
+        analytical_ploty.append(function(element))
     plt.plot(analytical_plotx, analytical_ploty, label="Analytical Solution")
 
 
 # main.
 def main():
-    plot_rk4(function, 1, 0, 1, 4)
-    plot_analytical_solution(4)
+    plot_rk4(function, 1, 0, 0.1, 10)
+    # plot_rk4_error(function, solution, 1, 0, 0.1, 10)
+    plot_analytical_solution(solution, 10)
     plt.legend()
     plt.show()
 
